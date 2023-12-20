@@ -1,5 +1,5 @@
 const fs = require("fs").promises;
-const productsDbPath = "./db.json";
+
 
 class ProductManager{
     static idProduct = 1;
@@ -103,62 +103,21 @@ class ProductManager{
     }
 }
 
-/*-----TESTING-----*/
-//1)Crear instancia de product manager
+module.exports = ProductManager;
 
-const manager = new ProductManager(productsDbPath);
+//el siguiente codigo fue el que hice para generar el archivo db.json
 
-//2)Leer la instancia recien creada de la lista de productos (DB)
+/*const manager = new ProductManager("./products.json")
+for(i = 1 ; i<11; i++){
+    const newProduct={
+        id: ProductManager.idProduct++,
+        title: `producto ${i}`,
+        description: "Este es un producto prueba",
+        price: i * 100,
+        img: "Sin imagen",
+        code: `abc10${i}`,
+        stock: i*5
+    }
 
-manager.getProducts();
-
-//3)Creacion de un producto y añadirlo a la lista de productos
-
-    //creacion del producto
-const productPrueba1 = {
-    id: "000" + ProductManager.idProduct++,
-    title: "producto prueba",
-    description: "Este es un producto prueba",
-    price: 200,
-    img: "Sin imagen",
-    code: "abc123",
-    stock: 25
-}
-const productPrueba2 ={
-    id: "000" + ProductManager.idProduct++,
-    title: "producto prueba 2",
-    description: "Este es el segundo producto de prueba",
-    price: 400,
-    img: "Sin imagen",
-    code: "abc124",
-    stock: 30
-}
-
-    //agregado del producto al archivo
-manager.addProduct(productPrueba1)
-manager.addProduct(productPrueba2)
-
-//4)Leer db.json para ver el producto recien agregado
-
-manager.getProducts()
-
-//5)Buscar un producto especifico en base a su ID o devolver un mensaje de error en caso de no encontrarlo
-
-manager.getProductById("0002")
-
-//6)Actualizar la lista de productos
-
-const productoActualizado = {
-    id: "0001",
-    title: "producto actualizado",
-    description: "Este es un producto prueba actualizado",
-    price: 500,
-    img: "Sin imagen",
-    code: "abc123",
-    stock: 10
-}
-manager.updateProduct("0001", productoActualizado) /*descomentar esta linea de codigo para que actualice el producto */
-
-//7)Eliminar un producto
-//manager.deleteProduct("0001") /*descomentar esta linea de codigo para que actualice el producto */
-
+    manager.addProduct(newProduct)
+}*/
