@@ -5,13 +5,23 @@ const ProductManager = require("../controllers/productManager");
 const productManager = new ProductManager("./src/models/products.json");
 
 
-router.get("/home", async (req, res) =>{
+router.get("/", async (req, res) =>{
     try {
         const products = await productManager.readFile();
         
-        res.render("index", {products})
+        res.render("index", {products});
     } catch (error) {
-        console.error("Error al leer el archivo: ", error)
+        console.error("Error al leer el archivo: ", error);
+    }
+})
+
+router.get("/realtimeproducts", (req, res) => {
+    try {
+        res.render("realTimeProducts");
+    } catch (error) {
+        res.status(500).json({
+            error: "Error interno del servidor"
+        })
     }
 })
 

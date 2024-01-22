@@ -4,7 +4,6 @@ const router = express.Router();
 const ProductManager = require("../controllers/productManager")
 const productManager = new ProductManager("./src/models/products.json")
 
-//muestra todos los productos del archivo en base a un query
 router.get("/products", async (req, res) => {
     try {
     const limit = parseInt(req.query.limit);
@@ -12,12 +11,9 @@ router.get("/products", async (req, res) => {
     const products = await productManager.readFile();
     
         if (!isNaN(limit) && limit > 0) {
-            // evalua que el valor de query no sea nulo y que si no lo es sea mayor de 0
             const productsListLimited = products.slice(0, limit);
             res.send(productsListLimited);
         } else {
-            // Si no se proporciona un límite válido, devuelve todos los productos
-            // res.send(products);
             res.send(products);
         }
     } catch (error) {

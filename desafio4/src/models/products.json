@@ -42,5 +42,16 @@
     "stock": 25,
     "category": "Storage",
     "thumbnails": "NaN"
+  },
+  {
+    "id": 5,
+    "title": "Aorus B650 Elite AX",
+    "description": "Motherboard alta gama",
+    "code": "123e",
+    "price": "300000",
+    "status": true,
+    "stock": "15",
+    "category": "Motherboard",
+    "thumbnails": "NaN"
   }
 ]
