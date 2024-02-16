@@ -5,6 +5,7 @@ class CartManager{
         try {
             const newCart = new CartModel({products: []});
             await newCart.save();
+            
             return newCart;
         } catch (error) {
             console.log("Error al crear el nuevo carrito.");
@@ -31,8 +32,8 @@ class CartManager{
 
             const existProduct = cart.products.find(item => item.product.toString() === productId);
 
-            if(!existProduct){
-                existProduct.quenatity += quantity;
+            if(existProduct){
+                existProduct.quantity += quantity;
             }else{
                 cart.products.push({product: productId, quantity});
             }
@@ -42,6 +43,7 @@ class CartManager{
 
             await cart.save();
             return cart;
+
         } catch (error) {
             console.error("Error al agregar el product al carrito.", error);
         }
