@@ -7,7 +7,7 @@ class ProductManager{
     constructor(productsDbPath){
         this.products = [];
         this.path = productsDbPath;
-        this.verifyProducts();
+        // this.verifyProducts();
     }
 
     async verifyProducts() {

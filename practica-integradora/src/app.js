@@ -1,12 +1,12 @@
-const ProductManager = require("./controllers/productManager")
-const productManager = new ProductManager("./src/models/products.json")
+// const ProductManager = require("./dao/fs/productManager")
+// const productManager = new ProductManager("./src/models/products.json")
 
 const express = require("express");
 const app = express();
 const PORT = 8080;
 const expressHbs = require("express-handlebars");
-const socket = require("socket.io"); 
-
+/*const socket = require("socket.io");*/
+require("./database");
 
 //Routers
 const productsRouter = require("./routes/products.router");
@@ -28,9 +28,9 @@ app.engine("handlebars", expressHbs.engine());
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
-//socket
-const httpServer = app.listen(PORT);
 
+//socket
+/*const httpServer = app.listen(PORT);
 const io = socket(httpServer);
 
 io.on("connection", async (socket) => {
@@ -49,6 +49,6 @@ io.on("connection", async (socket) => {
 
         io.sockets.emit("products", await productManager.readFile());
     });
-})
+})*/
 
-
+app.listen(PORT);
