@@ -1,53 +1,47 @@
-const socket = io();
+const socket = io(); 
 
-const renderProductos = (products) => {
-    const contanerProducts = document.getElementById("contanerProducts");
-    contanerProducts.innerHTML = "";
-
-
-    products.forEach(item => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-
-        card.innerHTML = `
-                <p>Id: ${item.id} </p>
-                <p>Titulo: ${item.title} </p>
-                <p>Precio: ${item.price} </p>
-                <button> Eliminar Producto </button>
-        
-        `;
-        contanerProducts.appendChild(card);
-
-        card.querySelector("button").addEventListener("click", () => {
-            deleteProduct(item.id);
-        });
-    });
-}
-
-const addProduct = () => {
-    const product = {
-        title: document.getElementById("title").value,
-        description: document.getElementById("description").value,
-        price: document.getElementById("price").value,
-        thumbnails: document.getElementById("thumbnails").value,
-        code: document.getElementById("code").value,
-        stock: document.getElementById("stock").value,
-        category: document.getElementById("category").value,
-        status: document.getElementById("status").value === "true"
-    };
-    
-    socket.emit("addProduct", product);
-};
-
-const deleteProduct = (id) => {
-    socket.emit("deleteProduct", id);
-}
-
-document.getElementById("btnEnviar").addEventListener("click", () => {
-    addProduct();
-});
+//Creamos una variable para guardar el usuario: 
+let user; 
+const chatBox = document.getElementById("chatBox");
 
 
-socket.on("products", (data) => {
-    renderProductos(data);
+
+//Swal es un objeto global que nos permite usar los métodos de la libreria.  
+//Fire es un método que nos permite configurar el alerta.
+
+Swal.fire({
+    title: "Identificate", 
+    input: "text",
+    text: "Ingresa un usuario para identificarte en el chat", 
+    inputValidator: (value) => {
+        return !value && "Necesitas escribir un nombre para continuar"
+    }, 
+    allowOutsideClick: false,
+}).then( result => {
+    user = result.value;
+})
+
+
+chatBox.addEventListener("keyup", (event) => {
+    if(event.key === "Enter") {
+        if(chatBox.value.trim().length > 0) {
+            //trim nos permite sacar los espacios en blanco del principio y del final de un string. 
+            //Si el mensaje tiene más de 0 caracteres, lo enviamos al servidor. 
+            socket.emit("message", {user: user, message: chatBox.value}); 
+            chatBox.value = "";
+        }
+    }
+})
+
+//Listener de Mensajes: 
+
+socket.on("message", data => {
+    let log = document.getElementById("messagesLogs");
+    let messages = "";
+
+    data.forEach( message => {
+        messages = messages + `${message.user} dice: ${message.message} <br>`
+    })
+
+    log.innerHTML = messages;
 })

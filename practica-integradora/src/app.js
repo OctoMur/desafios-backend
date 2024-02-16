@@ -5,9 +5,9 @@ const express = require("express");
 const app = express();
 const PORT = 8080;
 const expressHbs = require("express-handlebars");
-/*const socket = require("socket.io");*/
+const socket = require("socket.io");
 require("./database");
-
+const MessageModel = require("./dao/models/message.model");
 //Routers
 const productsRouter = require("./routes/products.router");
 const cartRouter = require("./routes/carts.router");
@@ -30,25 +30,22 @@ app.set("views", "./src/views");
 
 
 //socket
-/*const httpServer = app.listen(PORT);
+const httpServer = app.listen(PORT);
 const io = socket(httpServer);
 
 io.on("connection", async (socket) => {
-    console.log("Un cliente se conecto");
-    //envia los productos del inventario al cliente para que los renderize
-    socket.emit("products", await productManager.readFile());
-    //elimina un producto
-    socket.on("deleteProduct", async (id) => {
-        await productManager.deleteProduct(id);
-        io.sockets.emit("products", await productManager.getProducts());
-    });
-    //agrega un producto
-    socket.on("addProduct", async (product) => {
-        await productManager.addProduct(product);
+    console.log("Se ha conectado un nuevo usuario");
 
+    socket.on("message", async data => {
 
-        io.sockets.emit("products", await productManager.readFile());
-    });
-})*/
+        //Guardo el mensaje en MongoDB: 
+        await MessageModel.create(data);
 
-app.listen(PORT);
+        //Obtengo los mensajes de MongoDB y se los paso al cliente: 
+        const messages = await MessageModel.find();
+        console.log(messages);
+        io.sockets.emit("message", messages);
+    })
+})
+
+/*app.listen(PORT);*/
