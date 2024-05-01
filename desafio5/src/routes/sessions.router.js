@@ -13,7 +13,14 @@ router.post("/login", async (req, res) =>{
             //login
             if(user.password === password){
                 req.session.login = true;
-                res.status(200).send({message: "Login exitoso"});
+                req.session.user = {
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    age: user.age,
+                    admin: user.admin ? "Sí" : "No"
+                };
+                res.redirect("/profile");
             } else {
                 res.status(401).send({error: "Password incorrecta"});
             }

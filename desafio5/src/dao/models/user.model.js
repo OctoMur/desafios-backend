@@ -30,7 +30,8 @@ const userSchema = mongoose.Schema({
 
     admin: {
         type: Boolean,
-        require: true
+        require: true,
+        default: false
     }
 });
 

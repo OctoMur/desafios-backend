@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cookieParser = require("cookie-parser");
 const PORT = 8080;
 const expressHbs = require("express-handlebars");
 require("./database");
@@ -18,6 +19,7 @@ const sessionRouter = require("./routes/sessions.router");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./src/public"));
+app.use(cookieParser());
 app.use(session({
     secret: "secretSecret",
     resave: true,
