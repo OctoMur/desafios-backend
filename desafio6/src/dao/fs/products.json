@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "title": "Radeon RX 5600 XT",
+    "description": "Placa de video AMD serie 5000",
+    "code": "123a",
+    "price": 200000,
+    "status": true,
+    "stock": 15,
+    "category": "Video card",
+    "thumbnails": "NaN"
+  },
+  {
+    "id": 2,
+    "title": "Intel I5 10400f",
+    "description": "Procesador Intel I5 generacion 10",
+    "code": "123b",
+    "price": 180000,
+    "status": true,
+    "stock": 10,
+    "category": "Processors",
+    "thumbnails": "NaN"
+  },
+  {
+    "id": 3,
+    "title": "TUF A15",
+    "description": "Motherboard Asus TUF",
+    "code": "123c",
+    "price": 170000,
+    "status": true,
+    "stock": 20,
+    "category": "Motherboards",
+    "thumbnails": "NaN"
+  },
+  {
+    "id": 4,
+    "title": "XPG Spectrix S40G",
+    "description": "Disco de estado solido con aRGB",
+    "code": "123d",
+    "price": 45000,
+    "status": true,
+    "stock": 25,
+    "category": "Storage",
+    "thumbnails": "NaN"
+  },
+  {
+    "id": 5,
+    "title": "Aorus B650 Elite AX",
+    "description": "Motherboard alta gama",
+    "code": "123e",
+    "price": "300000",
+    "status": true,
+    "stock": "15",
+    "category": "Motherboard",
+    "thumbnails": "NaN"
+  }
+]
