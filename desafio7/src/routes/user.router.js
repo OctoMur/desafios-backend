@@ -4,8 +4,6 @@ const UserModel = require("../dao/models/user.model");
 const { createHash } = require("../utils/hashBcrypt");
 const passport = require("passport");
 
-//post para generar un usuario y almacenarlo en MongoDB (usando passport)
-
 router.post("/", passport.authenticate("register", {failureRedirect: "users/registerfail"}), async (req, res) =>{
     console.log("creando...");
     if(!req.user) return res.status(400).send({status: "error", message: "Credenciales invalidas"});
