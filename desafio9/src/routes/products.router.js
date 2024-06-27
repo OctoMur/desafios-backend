@@ -14,6 +14,6 @@ router.put("/:pid", productController.updateProduct);
 
 router.delete("/:pid", productController.deleteProduct);
 
-router.post("/mockingproducts", productController.postProductMock);
+router.post("/mockingproducts", productController.generateProductMock);
 
 module.exports = router;

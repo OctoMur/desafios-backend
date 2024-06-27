@@ -111,13 +111,13 @@ class ProductController{
         }
     }
 
-    async postProductMock(req, res){
+    async generateProductMock(req, res){
+        let newProducts = [ ];
         for(let i = 0; i < 100; i++){
-            const newProduct = mockingGenerator.productGenerate(i)
-            await productService.addProduct(newProduct);
+            newProducts.push(mockingGenerator.productGenerate());
         }
 
-        response(res, 200, {message: "Productos generados exitosamente"});
+        response(res, 200, {message: "Productos generados exitosamente", products : newProducts});
     }
 }
 
