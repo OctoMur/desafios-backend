@@ -1,0 +1,172 @@
+paths:
+  /api/products:
+    get:
+      summary: Retorna todos los productos del e-commerce
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Se obtienen todos los productos de la base de datos
+          content:
+            application:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/products"
+        "500":
+          description: Error al solicitar los productos a la base de datos
+    post:
+      summary: Crea un nuevo producto en la base de datos
+      tags:
+        - Products
+      requestBody:
+        requires: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createProduct"
+      responses:
+        "201":
+          description: Producto creado correctamente.
+  /api/products/pid:
+    get:
+      summary: Retorna la informacion de un producto especifico.
+      tags:
+        - Products
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del producto que se quiere buscar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto encotrando
+          content:
+            application:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/products"
+        "500":
+          description: Error al solicitar el producto a la base de datos
+    put:
+      summary: Actualiza los datos registrados de un producto.
+      tags:
+        - Products
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del producto que se quiere actualizar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto encotrando
+          content:
+            application:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/products"
+        "500":
+          description: Error al actualizar el producto a la base de datos
+    delete:
+      summary: Elimina un producto.
+      tags:
+        - Products
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del producto que se quiere eliminar.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto eliminado
+          content:
+            application:
+              schema:
+                type: array
+                items:
+                  $ref: "#components/schemas/products"
+        "500":
+          description: Error al eliminar el producto a la base de datos
+
+
+
+
+components:
+  schemas:
+    products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: ID autogenerado por MongoDB
+        title: 
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion del producto.
+        code:
+          type: string
+          description: Codigo de el producto.
+        price:
+          type: number
+          description: Valor del producto.
+        status:
+          type: boolean
+          description: Disponibilidad del producto.
+        stock:
+          type: number
+          description: Cantidad de existencias
+        category:
+          type: string
+          description: Categoria a la que pertenece el producto.
+      example:
+        _id: 666f784882bb41c153479c27
+        title: Radeon RX 5600 XT
+        description: Placa de video AMD
+        code: 0001a
+        price: 800000
+        status: true
+        stock: 8
+        category: Hardware
+  requestBodies:
+    createProduct:
+      type: object
+      properties:
+        title: 
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripcion del producto.
+        code:
+          type: string
+          description: Codigo de el producto.
+        price:
+          type: number
+          description: Valor del producto.
+        status:
+          type: boolean
+          description: Disponibilidad del producto.
+        stock:
+          type: number
+          description: Cantidad de existencias
+        category:
+          type: string
+          description: Categoria a la que pertenece el producto.
+      example:
+        title: Radeon RX 5600 XT
+        description: Placa de video AMD
+        code: 0001a
+        price: 800000
+        status: true
+        stock: 8
+        category: Hardware

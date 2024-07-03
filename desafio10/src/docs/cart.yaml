@@ -1,0 +1,201 @@
+paths:
+  /api/carts:
+    post:
+      summary: Crea un nuevo carrito
+      tags:
+        - Carts
+      responses:
+        "201":
+          description: Carrito creado correctamente.
+        "500":
+          description: Error al crear el carrito.
+  /api/carts/{cid}:
+    get:
+      summary: Retorna la información de un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se quiere buscar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cart"
+        "404":
+          description: Carrito no encontrado
+        "500":
+          description: Error al solicitar el carrito
+    put:
+      summary: Actualiza los datos de un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se quiere actualizar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cart"
+        "404":
+          description: Carrito no encontrado
+        "500":
+          description: Error al actualizar el carrito
+    delete:
+      summary: Vacía un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito que se quiere vaciar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Carrito vaciado
+        "404":
+          description: Carrito no encontrado
+        "500":
+          description: Error al vaciar el carrito
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Añade un producto a un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto añadido al carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cart"
+        "404":
+          description: Carrito o producto no encontrado
+        "500":
+          description: Error al añadir el producto al carrito
+    put:
+      summary: Actualiza un producto en un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto actualizado en el carrito
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cart"
+        "404":
+          description: Carrito o producto no encontrado
+        "500":
+          description: Error al actualizar el producto en el carrito
+    delete:
+      summary: Elimina un producto de un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Producto eliminado del carrito
+        "404":
+          description: Carrito o producto no encontrado
+        "500":
+          description: Error al eliminar el producto del carrito
+  /api/carts/{cid}/purchase:
+    post:
+      summary: Finaliza la compra de un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Compra finalizada
+        "404":
+          description: Carrito no encontrado
+        "500":
+          description: Error al finalizar la compra
+
+components:
+  schemas:
+    cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID autogenerado por MongoDB
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+                description: ID del producto
+              quantity:
+                type: number
+                description: Cantidad del producto en el carrito
+      example:
+        _id: 667ca789d8ac7250975f7c64
+        products:
+          - product: 60c72b1f9b1e8b2f5d8a77d7
+            quantity: 2
+          - product: 60c72b1f9b1e8b2f5d8a77d8
+            quantity: 1
